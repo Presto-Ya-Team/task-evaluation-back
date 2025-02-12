@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UsecasesProxyModule } from '../usecases-proxy/usecases-proxy.module';
 import { DummyController } from './dummy/dummy.controller';
+import { TaskController } from './tasks/tasks.controller';
 
 
 @Module({
@@ -8,7 +9,7 @@ import { DummyController } from './dummy/dummy.controller';
         UsecasesProxyModule,
     ],
     controllers: [
-        DummyController,
+        DummyController, TaskController
     ],
 })
 export class ControllersModule {}
