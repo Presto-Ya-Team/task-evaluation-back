@@ -12,8 +12,6 @@ export class TaskController {
 
   @Get()
   async getTasks() {
-    const tasks = await this.getTasksUsecaseProxy.getInstance().execute();
-    console.log('Tasks:', tasks); // Asegúrate de ver si las tareas están llegando
-    return tasks;
+    return await this.getTasksUsecaseProxy.getInstance().execute();
   }
 }
