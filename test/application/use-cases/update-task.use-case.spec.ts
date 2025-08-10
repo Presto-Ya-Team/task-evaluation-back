@@ -23,6 +23,7 @@ describe('UpdateTaskUseCase', () => {
     jest.spyOn(baseTask, 'updateTitle');
     jest.spyOn(baseTask, 'updateDescription');
     jest.spyOn(baseTask, 'markAsCompleted');
+    jest.spyOn(baseTask, 'markAsIncompleted');
   });
 
   it('should return null if the task does not exist', async () => {
@@ -82,6 +83,21 @@ describe('UpdateTaskUseCase', () => {
     expect(baseTask.markAsCompleted).toHaveBeenCalled();
     expect(taskRepository.update).toHaveBeenCalledWith(
       expect.objectContaining({ completed: true }),
+    );
+    expect(result).toEqual(updatedTask);
+  });
+
+  it('should mark the task as incomplete and return the updated task', async () => {
+    const updatedTask = { ...baseTask, completed: false };
+
+    taskRepository.findById.mockResolvedValue(baseTask);
+    taskRepository.update.mockResolvedValue(updatedTask as Task);
+
+    const result = await updateTaskUseCase.execute({ id: '1', completed: false });
+
+    expect(baseTask.markAsIncompleted).toHaveBeenCalled();
+    expect(taskRepository.update).toHaveBeenCalledWith(
+      expect.objectContaining({ completed: false }),
     );
     expect(result).toEqual(updatedTask);
   });

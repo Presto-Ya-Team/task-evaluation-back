@@ -24,8 +24,12 @@ export class UpdateTaskUseCase {
     if (input.description !== undefined) {
       existingTask.updateDescription(input.description);
     }
-    if (input.completed !== undefined && input.completed) {
-      existingTask.markAsCompleted();
+    if (input.completed !== undefined) {
+      if (input.completed) {
+        existingTask.markAsCompleted();
+      } else {
+        existingTask.markAsIncompleted();
+      }
     }
 
     existingTask.updatedAt = new Date();

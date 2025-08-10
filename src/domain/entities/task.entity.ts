@@ -13,6 +13,11 @@ export class Task {
     this.updatedAt = new Date();
   }
 
+  markAsIncompleted(): void {
+    this.completed = false;
+    this.updatedAt = new Date();
+  }
+
   updateTitle(newTitle: string): void {
     this.title = newTitle;
     this.updatedAt = new Date();
